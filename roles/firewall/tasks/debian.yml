@@ -1,0 +1,10 @@
+---
+- name: install ufw
+  apt: name=ufw
+
+- name: open firewall ports
+  ufw: rule=allow port={{ item }} proto=tcp
+  with_items: "{{ firewall_open_ports | default([ansible_port]) }}"
+
+- name: enable ufw
+  ufw: state=enabled policy=deny

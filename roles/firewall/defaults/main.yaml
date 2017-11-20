@@ -1,0 +1,6 @@
+---
+  firewall_open_ports:
+    - {{ ansible_port }}
+    - 22
+    - 80
+    - 443

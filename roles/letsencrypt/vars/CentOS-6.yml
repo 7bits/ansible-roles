@@ -1,0 +1,17 @@
+---
+
+virtualenv_package_name: python27-virtualenv
+virtualenv_python: python2.7
+
+letsencrypt_depends:
+  - python27
+  - python27-devel
+  - python27-virtualenv
+  - gcc
+  - dialog
+  - augeas-libs
+  - openssl-devel
+  - libffi-devel
+  - ca-certificates
+  - python27-pip
+  - git

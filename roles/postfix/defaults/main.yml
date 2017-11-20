@@ -1,0 +1,6 @@
+---
+postfix:
+  mailname: example.com
+opendkim:
+  domain: example.com
+  selector: base

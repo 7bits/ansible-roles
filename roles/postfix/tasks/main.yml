@@ -1,0 +1,45 @@
+---
+- name: Postfix configuration mailer type in debconf
+  debconf:
+    name: 'postfix'
+    question: 'postfix/main_mailer_type'
+    vtype: 'select'
+    value: 'Internet Site'
+
+- name: Postfix configuration mailer type in debconf
+  debconf:
+    name: 'postfix'
+    question: 'postfix/mailname'
+    vtype: 'string'
+    value: '{{ postfix.mailname }}'
+
+- name: install postfix
+  apt: name=postfix
+
+- name: start postfix
+  service: name=postfix state=started
+
+- name: install opendkim
+  apt: name=opendkim
+
+- name: create folder for keys
+  file: path=/etc/opendkim state=directory
+
+- name: copy opendkim key
+  copy: src=domainkey.pem dest=/etc/opendkim/domainkey.pem mode=0400
+
+- name: copy opendkim config
+  template: src=opendkim.conf dest=/etc/opendkim.conf
+  notify: restart opendkim
+
+- name: start opendkim
+  service: name=opendkim state=started
+
+- name: enable opendkim milter
+  lineinfile: dest=/etc/postfix/main.cf line='{{ item }}'
+  with_items:
+    - 'milter_protocol = 2'
+    - 'milter_default_action = accept'
+    - 'smtpd_milters = inet:127.0.0.1:12301'
+    - 'non_smtpd_milters = inet:127.0.0.1:12301'
+  notify: restart postfix

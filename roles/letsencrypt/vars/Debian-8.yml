@@ -1,0 +1,19 @@
+--- # Debian jessie
+
+virtualenv_package_name: virtualenv
+virtualenv_python: python2
+
+letsencrypt_depends:
+  - python
+  - python-dev
+  - python-virtualenv
+  - gcc
+  - dialog
+  - libaugeas0
+  - libssl-dev
+  - libffi-dev
+  - ca-certificates
+  - python-pip
+  - git
+
+libssl_release: jessie-backports
