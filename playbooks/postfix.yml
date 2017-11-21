@@ -1,0 +1,6 @@
+---
+- name: Install postfix
+  hosts: mailer
+  remote_user: root
+  roles:
+    - postfix

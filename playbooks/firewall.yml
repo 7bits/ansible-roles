@@ -1,0 +1,6 @@
+---
+- name: Configure UFW
+  hosts: firewall
+  remote_user: root
+  roles:
+    - firewall
